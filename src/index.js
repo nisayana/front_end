@@ -1,4 +1,7 @@
 const locationCollection = document.querySelector(".location-collection")
+const createButton = document.querySelector(".formbtn")
+const formDiv = document.querySelector(".form-container")
+const sightseeingContainer = document.querySelector(".sightseeing-container")
 
 fetch("http://localhost:3000/locations")
 .then(res => res.json())
@@ -31,16 +34,43 @@ let renderLocation = (location) => {
         locationDescription.innerText = location.description
 
     locationDiv.append(locationImg, locationName, locationDescription)
-    console.log(locationDiv)
+    // console.log(locationDiv)
     locationCollection.append(locationDiv)
 
-    locationDiv.addEventListener("click", (evt) => {
-        fetch('http:/localhost:3000/sightseeings')
-        .then(res => res.json())
-        .then((sightseeings) => {
-            console.log(sightseeings)
-        })
-    })
+    renderSightseeings(locationImg, location, locationCollection)
     
 }
 
+let sightseeingCardFunc = (sightseeing, locationCollection) => {
+    // debugger
+    let sightseeingCard = document.createElement("div")
+    let imageTag = document.createElement("img")
+    imageTag.src = sightseeing.image_url
+
+    let sightseeingName = document.createElement("h2")
+    sightseeingName.innerText = sightseeing.name
+
+    let sightseeingDescription = document.createElement("p")
+    sightseeingDescription.innerText = sightseeing.description
+
+    sightseeingCard.append(imageTag, sightseeingName, sightseeingDescription)
+    sightseeingContainer.append(sightseeingCard)
+}
+
+let renderSightseeings = (locationImg, location, locationCollection) => {
+    if (locationImg) {
+        locationImg.addEventListener("click", (evt) => {
+            locationCollection.classList.add("hide")
+            location.sightseeings.forEach((sightseeing) => {
+                sightseeingCardFunc(sightseeing, locationCollection)
+            })
+        }) 
+    }   
+}
+
+
+
+// createButton.addEventListener("click", (evt) => {
+
+
+// })

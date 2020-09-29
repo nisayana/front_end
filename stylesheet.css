@@ -1,31 +1,7 @@
-.location-collection {
-    margin: 2rem;
-  }
-  .location {
-    text-align: center;
-    border: grey solid 1px;
-    padding: 1rem;
-    width: fit-content;
-    height: fit-content;
-    display: inline-grid;
-    margin: 1rem 2rem;
-  
-  }
-  
-  h3 {
-    font-family: 'Caveat', cursive;
-  }
-  
-  h2{
-  
-    font-family: 'Caveat', cursive;
-  }
-  .location_pic {
-    justify-self: center;
-    height: 30px;
-    width: 30px;
-  }
-  
-  .hide {
-    display: none;
-  }
+.hide{
+    display: none
+}
+
+.show{
+    display: block
+}
