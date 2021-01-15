@@ -1,7 +1,141 @@
-.hide{
-    display: none
+.header {
+    padding: 10px;
+    text-align: center;
+    /* background: #9ab8e4; */
+    /* background-image: url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm218batch4-katie-31.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=b43b27dcbe47db8e4ff62afd0ad8225f"); */
+    /* background-image: url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm283-adj-013_2.jpg?w=1000&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=f9fa98f837049db0343b754b531e051d"); */
+    background-position: center;
+    position: relative;
+    background-size: 400px;
+    color: #165050;
+    font-size: 30px;
+    font-family: 'Righteous';
+  }
+  
+  .header-subtitle {
+    color: #2F4F4F;
+    font-size: 30px;
+    font-family: Verdana, Arial, Helvetica; 
+  }
+  
+  .main {
+      padding: 0px;
+  }
+
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    width: 250px;
+    height: 300px;
+    display: inline-block;
+    text-align: center;
+    font-family: "Ringside Wide", "Karla", sans-serif;
+  }
+
+  .location {
+    float: left;
+    width: 50%;
+    border: 50%;
+    padding: 30px;
+  }
+  
+  .card img {
+    width: 100%;
+    border-radius: 5px;
+    height: 300px;
+    object-fit: cover;
+  }
+
+  .location-collection {
+    margin: 2rem;
+  }
+  .card {
+    text-align: center;
+    border: grey solid 1px;
+    padding: 1rem;
+    width: fit-content;
+    height: fit-content;
+    display: inline-grid;
+    margin: 1rem 2rem;
+  
+  }
+  
+  h3 {
+    font-family: 'Caveat';
+  }
+  
+  h2{
+    font-family: 'Caveat';
+  }
+  .location-pic {
+    justify-self: center;
+    height: 20rem;
+    width: 330px;
+  }
+  
+  .hide {
+    display: none;
+  }
+
+  .solo-card {
+    text-align: center;
+    border: grey solid 1px;
+    padding: 4rem;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    margin: 1rem 2rem;
+    background-color: #f4f9f7;
+  
+  }
+  
+  .sightseeing-pic {
+    justify-self: left;
+    height: 20rem;
+    width: 300px;
+  }
+
+  .sightseeing-pic {
+    float: center;
+  }
+  
+  /* .sightseeing-pic {
+    width: 50%;
+  } */
+  
+  .container {
+    padding:20px;
+  }
+  
+  .desc{
+    text-align: center;
+    font-family: 'Port Lligat Sans', sans-serif;
+    font-size: large;
+  }
+  
+  .name-desc-container{
+    padding: 2em;
+    display: flow-root;
+  
+  }
+  
+.navbar {
+    padding: 0 4.5rem;
 }
 
-.show{
-    display: block
+.navbar-brand {
+    font-family: "Ubuntu";
+    font-size: 2.5rem;
+    font-weight: bold;
 }
+
+.nav-item {
+    padding: 0 18px;
+}
+
+.nav-link {
+    color: #165050;
+    font-size: 1.2rem;
+    font-family: "Montserrat";
+}
+  
