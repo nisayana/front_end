@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <title>Explore Lake Baikal</title>
+    <script defer type="text/javascript" src="src/user.js"></script>
     <script defer type="text/javascript" src="src/index.js"></script>
+    
     <link href="stylesheet.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
@@ -13,39 +15,28 @@
   </head>
   <body>
     <div class="header">
-      <nav class="navbar navbar-expand-lg">
-      <nav class="navbar">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="">Favorite</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="">Login</a>
-            </li>
-        </ul>
-      </nav>
-      </nav>
+      <div class="navbar">
+        <li class="nav-link" id="namehere" ></li>
+        <li class="nav-link" id="logout" ></li>
+        <li class="nav-link" id="home" >Home</li>
+        <li class="nav-link" id="favorite" >Favorite</li>
+        <li class="nav-link" id="login" >Login</li>
+        <li class="nav-link" id="signup" >Signup</li>
 
+      </div>
+      <br>
         <h1>Explore Lake Baikal</h1>
     </div>
    
     <div class="main">
     
-        <div class="location-collection">
-       
-        </div>
+        <div class="location-collection"></div>
     
         <div class="sightseeing-container">
           <button class="formbtn" id="form" >Create Sightseeing</button>
         </div>
-  
     
-        <div class="form-container">
-              
-        </div>
+        <div class="form-container"></div>
     </div>
         
   </body>
