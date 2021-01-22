@@ -1,10 +1,9 @@
 // const login = document.querySelector(".nav-link#login")
 
-// console.log(login)
 
 const main = document.querySelector(".main")
 const navbar = document.querySelector(".navbar")
-let userInfo = ""
+let userInfo
 
 navbar.addEventListener("click", (evt) => {
 
@@ -13,7 +12,12 @@ navbar.addEventListener("click", (evt) => {
     if (evt.target.id == "login") {showLoginForm()}
 })
 
-showLoginForm = () => {
+
+let showSignUpForm = () => {
+    
+}
+
+let showLoginForm = () => {
     // login.innerHTML = ""
 
     let loginForm = document.createElement("form")
@@ -60,9 +64,12 @@ let handleLoginForm = (evt) => {
         })
     })
     .then(res => res.json())
-    .then(response => {
-        userInfo = response
-        // renderSightseeings()
+    .then(user => {
+        if (user.id) {
+            console.log(user)
+            userInfo = user
+            // renderSightseeings()
+        }
     })
 }
 
