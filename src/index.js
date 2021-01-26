@@ -63,6 +63,7 @@ let renderSight = (locationImg, location, locationCollection) => {
 
 let sightCardFunc = (sightseeing, locationCollection) => {
     // debugger
+    console.log(sightseeing)
     let sightCard = document.createElement("div")
 
     let sightImg = document.createElement("img")
@@ -103,6 +104,10 @@ let sightCardFunc = (sightseeing, locationCollection) => {
     let reviewDiv = document.createElement("div")
         reviewDiv.className = "form-group"
 
+    sightseeing.reviews.forEach((sight_review) => {
+        createNewReview(sight_review, reviewDiv)
+    })
+
     let reviewForm = document.createElement("form")
         reviewForm.id = "new-review"
 
@@ -118,7 +123,10 @@ let sightCardFunc = (sightseeing, locationCollection) => {
 
     submitReview.addEventListener("click", (event) => {
         event.preventDefault()
-
+        if (userInfo === undefined) {
+            alert("Please log in")
+            return 
+        }
         let newReviewContent = reviewArea.value
         console.log(newReviewContent)
      
