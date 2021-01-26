@@ -11,7 +11,7 @@
     font-size: 30px;
     font-family: 'Righteous';
   }
-  
+
   .header-subtitle {
     color: #2F4F4F;
     font-size: 30px;
@@ -136,4 +136,18 @@
     font-size: 1.2rem;
     font-family: "Montserrat";
 }
-  
+
+.star-rating-defaults: (
+  base-classname : 'gl-star-rating',
+  base-display   : block,
+  base-height    : 26px,
+  font-size      : 0.8em,
+  font-weight    : 600,
+  parent         : '',
+  star-empty     : url(../img/star-empty.svg),
+  star-full      : url(../img/star-full.svg),
+  star-half      : url(../img/star-half.svg),
+  star-size      : 24px,
+  text-background: #1a1a1a,
+  text-color     : #fff,
+);
