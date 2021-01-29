@@ -1,18 +1,18 @@
 // let addSights = false
 const locationCollection = document.querySelector(".location-collection")
-const createSightBtn = document.querySelector(".formbtn")
+// const createSightBtn = document.querySelector(".formbtn")
 const sightsForm = document.querySelector(".add-sights-form")
 const formDiv = document.querySelector(".form-container")
 const sightContainer = document.querySelector(".sightseeing-container")
 const main = document.querySelector(".main")
+const favorite = document.querySelector("#favorite")
 
-const allSightsReviews = document.createElement("div")
-const sightReview = document.createElement("div")
+// const allSightsReviews = document.createElement("div")
+// const sightReview = document.createElement("div")
 // const starRatingControl = new StarRating( '.star-rating' );
 // console.log(starRatingControl)
 
 let allReviews = []
-
 
 fetch("http://localhost:3000/locations")
 .then(res => res.json())
@@ -23,7 +23,7 @@ fetch("http://localhost:3000/locations")
 })
 
 let renderLocation = (location) => {
-    createSightBtn.classList.add("hide")
+    // createSightBtn.classList.add("hide")
 
     let locationDiv = document.createElement("div")
         locationDiv.classList.add("location")
@@ -50,7 +50,7 @@ let renderSight = (locationImg, location, locationCollection) => {
     if (locationImg) {
         locationImg.addEventListener("click", (evt) => {
             locationCollection.classList.add("hide")
-            createSightBtn.classList.remove("hide")
+            // createSightBtn.classList.remove("hide")
             location.sightseeings.forEach((sightseeing) => {
                 sightCardFunc(sightseeing, locationCollection)
             })
@@ -63,7 +63,11 @@ let renderSight = (locationImg, location, locationCollection) => {
 
 let sightCardFunc = (sightseeing, locationCollection) => {
     // debugger
-    console.log(sightseeing)
+    // console.log(sightseeing)
+    let createSightBtn = document.createElement("button")
+        createSightBtn.className = "new-sight-btn"
+        createSightBtn.innerText = "Create a new sigihtseeing"
+
     let sightCard = document.createElement("div")
 
     let sightImg = document.createElement("img")
@@ -78,6 +82,7 @@ let sightCardFunc = (sightseeing, locationCollection) => {
         sightDesc.innerText = sightseeing.description
 
     let sightLoves = document.createElement("div")
+        sightLoves.className = "loves-count"
         sightLoves.innerText = `${sightseeing.loves} loves`
 
     let loveBtn = document.createElement("button")
@@ -86,20 +91,19 @@ let sightCardFunc = (sightseeing, locationCollection) => {
 
     let deleteBtn = document.createElement("button")
           deleteBtn.className = "delete"
-          deleteBtn.innerText = "delete"
+          deleteBtn.innerText = "Delete"
 
-    allSightsReviews.innerText = ""
+    let addToFav = document.createElement("button")
+        addToFav.className = "fav-btn"
+        addToFav.innerText = "Add to favorite"
 
-    allSightsReviews.className = "reviews"
+    // allSightsReviews.innerText = ""
+
+    // allSightsReviews.className = "reviews"
     
     let reviewH5 = document.createElement("h5")
         reviewH5.id = "review-header"
         reviewH5.innerText = "Reviews"
-    allSightsReviews.append(reviewH5)
-
-    // singleReviewCard(sightseeing)
-
-    // Review form 
 
     let reviewDiv = document.createElement("div")
         reviewDiv.className = "form-group"
@@ -123,7 +127,7 @@ let sightCardFunc = (sightseeing, locationCollection) => {
 
     submitReview.addEventListener("click", (event) => {
         event.preventDefault()
-        if (userInfo === undefined) {
+        if (travelerInfo === undefined) {
             alert("Please log in")
             return 
         }
@@ -138,7 +142,7 @@ let sightCardFunc = (sightseeing, locationCollection) => {
           body: JSON.stringify({
             review: newReviewContent,
             sightseeing_id: sightseeing.id,
-            traveler_id: userInfo.id
+            traveler_id: travelerInfo.id
           })
         })
         .then(res => res.json())
@@ -150,29 +154,18 @@ let sightCardFunc = (sightseeing, locationCollection) => {
         })
       })
 
-    // let likes = document.createElement("div")
-    //       likes.innerText = `${sightseeing.likes.length} ♥️`
 
-    // let likeBtn = document.createElement("button")
-    //       likeBtn.className = "like-btn"
-    //     //   likeBtn.classList.add("like")
-    //       likeBtn.innerText = "♥️"
+    sightCard.append(sightImg, sightName, sightDesc, sightLoves, loveBtn, addToFav, deleteBtn, reviewDiv) //likes, likeBtn, 
+    sightContainer.append(createSightBtn, sightCard)
 
-    // let bucketList = document.createElement("button")
-    //       bucketList.innerText = "Add to my bucket list"
-    //       bucketList.className = "bucket-list"
-
-
-    sightCard.append(sightImg, sightName, sightDesc, sightLoves, loveBtn, deleteBtn, reviewDiv) //likes, likeBtn, 
-    sightContainer.append(sightCard)
-
-    // bucketList.addEventListener("click", () => {
-    //     addToMyBucketList(sightseeing)
-    // })
+    addToFav.addEventListener("click", () => {
+        addToFavsFunc(sightseeing)
+    })
 
     // increaseLikes(likeBtn, sightseeing, likes)
     increaseLove(loveBtn, sightseeing, sightLoves)
     deleteSight(deleteBtn, sightseeing, sightCard)
+    createSightsFunc(createSightBtn, location)
 }
 
 let createNewReview = (review, reviewDiv) => {
@@ -189,8 +182,9 @@ let createNewReview = (review, reviewDiv) => {
     reviewDiv.append(reviewSection)
   }
 
-let createSightsFunc = (location) => {
+let createSightsFunc = (createSightBtn, location) => {
     createSightBtn.addEventListener("click", (evt) => {
+        console.log(createSightBtn)
         sightContainer.classList.add("hide")
 
         let form = document.createElement("form")
@@ -314,6 +308,40 @@ function deleteSight (deleteBtn, sightseeing, sightCard){
 }
 
 
-// function addToMyFavs(sightseeing) {
+function addToFavsFunc(sightseeing) {
+    if (travelerInfo === undefined) {
+        alert("Please log in")
+        return 
+    }
+    fetch(`http://localhost:3000/likes`, {
+        method: "POST",
+        headers: {
+            "Content-type": "Application/json"
+        },
+        body: JSON.stringify({
+            traveler_id: travelerInfo.id,
+            sightseeing_id: sightseeing.id
+        })
+    })
+    .then(res => res.json())
+    .then(favs => {
+        alert("Added to favorites")
+        // console.log(favs)
+    })
+}
 
-// }
+favorite.addEventListener("click", (e) => {
+    if (travelerInfo === undefined) {
+        alert("Please log in")
+        return
+    }
+    displayFavs()
+})
+
+function displayFavs (traveler_id) {
+    fetch(`http://localhost:3000/likes`)
+        .then(res => res.json())
+        .then(likes => {
+            console.log(likes)
+        })
+}

@@ -2,7 +2,7 @@
 const fromContainer = document.querySelector("div#sign-up-form")
 
 const navbar = document.querySelector(".navbar")
-let userInfo
+let travelerInfo
 
 navbar.addEventListener("click", (evt) => {
 
@@ -120,7 +120,7 @@ let handleLoginForm = (evt) => {
     .then(user => {
         if (user.id) {
             console.log(user)
-            userInfo = user
+            travelerInfo = user
             // renderSightseeings()
         }
     })
