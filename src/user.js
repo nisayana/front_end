@@ -1,5 +1,5 @@
 // const login = document.querySelector(".nav-link#login")
-const fromContainer = document.querySelector("div#sign-up-form")
+const formContainer = document.querySelector("div#sign-up-form")
 
 const navbar = document.querySelector(".navbar")
 let travelerInfo
@@ -9,57 +9,52 @@ navbar.addEventListener("click", (evt) => {
     // main.className = "hide"
 
     if (evt.target.id == "login") {showLoginForm()}
+    if (evt.target.id == "signup") {showSignUpForm()}
+    if (evt.target.id == "home") {renderLocation()}
+
 })
 
 
 let showSignUpForm = () => {
-    locationDiv.innerText = ""
+    // locationDiv.innerText = ""
     main.innerText = ""
 
     let signUpForm = document.createElement('form')
         signUpForm.className = "sign-up-form"
-    fromContainer.append(signUpForm)
 
     let heading = document.createElement("h2")
         heading.innerText = "Create an account"
-    signUpForm.append(heading)
 
     let line = document.createElement('hr'); // linebreak
-    signUpForm.appendChild(line);
     
     let linebreak = document.createElement('br'); // space
-    signUpForm.appendChild(linebreak);
     
     let nameLabel = document.createElement('label'); // Full Name label
-    nameLabel.innerHTML = "Full Name: ";
-    signUpForm.appendChild(nameLabel);
+    nameLabel.innerHTML = "Name: ";
     
     let nameInput = document.createElement('input'); // Full Name input
-    nameInput.id = "fullname"
-    signUpForm.appendChild(nameInput);
+    nameInput.id = "name"
     
     let linebreak1 = document.createElement('br'); // space
-    signUpForm.appendChild(linebreak1);
     
     let usernameLabel = document.createElement('label'); // Username label
     usernameLabel.innerHTML = "Username: "; // 
-    signUpForm.appendChild(usernameLabel);
     
     let userNameInput = document.createElement('input'); // Username input
     userNameInput.id = "username"
-    signUpForm.appendChild(userNameInput);
 
     let linebreak2 = document.createElement('br'); // space
-    signUpForm.appendChild(linebreak2);
 
     let submitBtn = document.createElement('button'); // Append Submit Button
     submitBtn.type = "submit"
     submitBtn.className = "btn btn-primary btn-lg"
     submitBtn.id = 'sign-up-button'
     submitBtn.innerText = "Create Account"
-    signUpForm.appendChild(submitBtn);
 
-    main.append(fromContainer)
+    signUpForm.append(heading, line, linebreak, nameLabel, nameInput, linebreak1, usernameLabel, userNameInput, userNameInput, submitBtn);
+    main.append(signUpForm)
+
+    // main.append(formContainer)
     signUpForm.addEventListener("submit", handleSignUpForm)
         
 }

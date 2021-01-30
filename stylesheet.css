@@ -23,7 +23,7 @@ display: inline;
 
 .nav-link {
   padding: 0 18px;
-  color: #165050;
+  color: black;
   font-size: 1.2rem;
   font-family: "Montserrat";
 }
@@ -98,6 +98,11 @@ display: inline;
     margin: 1rem 2rem;
     background-color: #f4f9f7;
   
+  }
+
+  .sight-card {
+    display: flex;
+    flex-direction: row;
   }
   
   .sightseeing-pic {

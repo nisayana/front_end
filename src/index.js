@@ -2,10 +2,11 @@
 const locationCollection = document.querySelector(".location-collection")
 // const createSightBtn = document.querySelector(".formbtn")
 const sightsForm = document.querySelector(".add-sights-form")
-const formDiv = document.querySelector(".form-container")
+const formDiv = document.querySelector("#form-container")
 const sightContainer = document.querySelector(".sightseeing-container")
 const main = document.querySelector(".main")
 const favorite = document.querySelector("#favorite")
+const home = document.querySelector("#home")
 
 // const allSightsReviews = document.createElement("div")
 // const sightReview = document.createElement("div")
@@ -13,6 +14,10 @@ const favorite = document.querySelector("#favorite")
 // console.log(starRatingControl)
 
 let allReviews = []
+
+// home.addEventListener("click", (evt) => {
+//     renderLocation()
+// })
 
 fetch("http://localhost:3000/locations")
 .then(res => res.json())
@@ -51,6 +56,13 @@ let renderSight = (locationImg, location, locationCollection) => {
         locationImg.addEventListener("click", (evt) => {
             locationCollection.classList.add("hide")
             // createSightBtn.classList.remove("hide")
+            let createSightBtn = document.createElement("button")
+                createSightBtn.className = "new-sight-btn"
+                createSightBtn.innerText = "Create a new sigihtseeing"
+            
+                sightContainer.append(createSightBtn)
+                createSightsFunc(createSightBtn, location)
+
             location.sightseeings.forEach((sightseeing) => {
                 sightCardFunc(sightseeing, locationCollection)
             })
@@ -64,11 +76,9 @@ let renderSight = (locationImg, location, locationCollection) => {
 let sightCardFunc = (sightseeing, locationCollection) => {
     // debugger
     // console.log(sightseeing)
-    let createSightBtn = document.createElement("button")
-        createSightBtn.className = "new-sight-btn"
-        createSightBtn.innerText = "Create a new sigihtseeing"
-
+    
     let sightCard = document.createElement("div")
+        sightCard.className = "sight-card"
 
     let sightImg = document.createElement("img")
         sightImg.src = sightseeing.image_url
@@ -85,6 +95,9 @@ let sightCardFunc = (sightseeing, locationCollection) => {
         sightLoves.className = "loves-count"
         sightLoves.innerText = `${sightseeing.loves} loves`
 
+    let btnContainer = document.createElement("div")
+        btnContainer.className = "btn-container"
+
     let loveBtn = document.createElement("button")
           loveBtn.className = "love-btn"
           loveBtn.innerText = "♥️"
@@ -96,6 +109,8 @@ let sightCardFunc = (sightseeing, locationCollection) => {
     let addToFav = document.createElement("button")
         addToFav.className = "fav-btn"
         addToFav.innerText = "Add to favorite"
+
+        btnContainer.append(loveBtn, deleteBtn, addToFav)
 
     // allSightsReviews.innerText = ""
 
@@ -155,8 +170,8 @@ let sightCardFunc = (sightseeing, locationCollection) => {
       })
 
 
-    sightCard.append(sightImg, sightName, sightDesc, sightLoves, loveBtn, addToFav, deleteBtn, reviewDiv) //likes, likeBtn, 
-    sightContainer.append(createSightBtn, sightCard)
+    sightCard.append(sightImg, sightName, sightDesc, sightLoves, btnContainer, reviewDiv) //likes, likeBtn, 
+    sightContainer.append(sightCard)
 
     addToFav.addEventListener("click", () => {
         addToFavsFunc(sightseeing)
@@ -165,7 +180,6 @@ let sightCardFunc = (sightseeing, locationCollection) => {
     // increaseLikes(likeBtn, sightseeing, likes)
     increaseLove(loveBtn, sightseeing, sightLoves)
     deleteSight(deleteBtn, sightseeing, sightCard)
-    createSightsFunc(createSightBtn, location)
 }
 
 let createNewReview = (review, reviewDiv) => {
@@ -187,6 +201,7 @@ let createSightsFunc = (createSightBtn, location) => {
         console.log(createSightBtn)
         sightContainer.classList.add("hide")
 
+
         let form = document.createElement("form")
             form.className = "form"
 
@@ -201,7 +216,6 @@ let createSightsFunc = (createSightBtn, location) => {
             inputName.type = "text"
             inputName.name = "lname"
             inputName.placeholder= "Sightseeing name"
-
 
         let br1 = document.createElement("br")
         // form.appendChild(br1)
@@ -273,7 +287,7 @@ let createSightsFunc = (createSightBtn, location) => {
 
 
 
-function increaseLove (loveBtn, sightseeing, sightLoves) {
+let increaseLove = (loveBtn, sightseeing, sightLoves) => {
     
     loveBtn.addEventListener("click", (e) => {
 
@@ -297,7 +311,7 @@ function increaseLove (loveBtn, sightseeing, sightLoves) {
     })
 }
 
-function deleteSight (deleteBtn, sightseeing, sightCard){
+let deleteSight = (deleteBtn, sightseeing, sightCard) => {
     deleteBtn.addEventListener("click", (e) => {
         sightCard.remove()
         fetch(`http://localhost:3000/sightseeings/${sightseeing.id}`, {
@@ -308,7 +322,7 @@ function deleteSight (deleteBtn, sightseeing, sightCard){
 }
 
 
-function addToFavsFunc(sightseeing) {
+let addToFavsFunc = (sightseeing) => {
     if (travelerInfo === undefined) {
         alert("Please log in")
         return 
@@ -324,7 +338,8 @@ function addToFavsFunc(sightseeing) {
         })
     })
     .then(res => res.json())
-    .then(favs => {
+    .then(fav => {
+        // console.log(fav)
         alert("Added to favorites")
         // console.log(favs)
     })
@@ -335,13 +350,27 @@ favorite.addEventListener("click", (e) => {
         alert("Please log in")
         return
     }
-    displayFavs()
+    displayFavs(travelerInfo)
 })
 
-function displayFavs (traveler_id) {
-    fetch(`http://localhost:3000/likes`)
+let displayFavs = (travelerInfo) => {
+    console.log(travelerInfo.likes)
+    fetch(`http://localhost:3000/travelers/${travelerInfo.id}`)
         .then(res => res.json())
-        .then(likes => {
-            console.log(likes)
+        .then(traveler => {
+            main.innerHTML = ""
+            traveler.likes.forEach((travelerFave)=>{
+                createFave(travelerFave)
+            })
         })
+}
+
+let createFave = (travelerFave) =>  {
+
+    console.log("from createFunc", likes.sightseeing)
+
+    likes.forEach(like => {
+        let likeDiv = createElement("div")
+            likeDiv.className
+    })
 }
