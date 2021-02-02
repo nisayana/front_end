@@ -1,31 +1,43 @@
 // let addSights = false
-const locationCollection = document.querySelector(".location-collection")
+let locationCollection = document.querySelector(".location-collection")
+let sightContainer = document.querySelector(".sightseeing-container")
+
 // const createSightBtn = document.querySelector(".formbtn")
 const sightsForm = document.querySelector(".add-sights-form")
 const formDiv = document.querySelector("#form-container")
-const sightContainer = document.querySelector(".sightseeing-container")
 const main = document.querySelector(".main")
 const favorite = document.querySelector("#favorite")
 const home = document.querySelector("#home")
 
-// const allSightsReviews = document.createElement("div")
-// const sightReview = document.createElement("div")
-// const starRatingControl = new StarRating( '.star-rating' );
-// console.log(starRatingControl)
 
-let allReviews = []
 
-// home.addEventListener("click", (evt) => {
-//     renderLocation()
-// })
 
-fetch("http://localhost:3000/locations")
-.then(res => res.json())
-.then((arrayOfLocations) => {
-    arrayOfLocations.forEach((location) => {
-        renderLocation(location)
-    })
+// let allReviews = []
+
+home.addEventListener("click", (evt) => {
+    main.innerHTML = ""
+    let locCollect = document.createElement("div")
+    locationCollection = locCollect
+    let sightCollect = document.createElement("div")
+    sightContainer = sightCollect
+    main.append(locCollect, sightCollect)
+
+    fetchHome()
 })
+
+
+let fetchHome = () => {
+    fetch("http://localhost:3000/locations")
+        .then(res => res.json())
+        .then((arrayOfLocations) => {
+            arrayOfLocations.forEach((location) => {
+            renderLocation(location)
+            // renderHomePage(location)
+        })
+    })
+}
+
+fetchHome()
 
 let renderLocation = (location) => {
     // createSightBtn.classList.add("hide")
@@ -57,7 +69,8 @@ let renderSight = (locationImg, location, locationCollection) => {
             locationCollection.classList.add("hide")
             // createSightBtn.classList.remove("hide")
             let createSightBtn = document.createElement("button")
-                createSightBtn.className = "new-sight-btn"
+                createSightBtn.className = "del-fav-new-btn"
+                createSightBtn.is = "new-sight-btn"
                 createSightBtn.innerText = "Create a new sigihtseeing"
             
                 sightContainer.append(createSightBtn)
@@ -71,8 +84,6 @@ let renderSight = (locationImg, location, locationCollection) => {
     }   
 }
 
-
-
 let sightCardFunc = (sightseeing, locationCollection) => {
     // debugger
     // console.log(sightseeing)
@@ -83,6 +94,9 @@ let sightCardFunc = (sightseeing, locationCollection) => {
     let sightImg = document.createElement("img")
         sightImg.src = sightseeing.image_url
         sightImg.classList.add("sightseeing-pic")
+
+    let soloDiv = document.createElement("div")
+        soloDiv.className = "name-desc-container"
 
     let sightName = document.createElement("h2")
         sightName.innerText = sightseeing.name
@@ -103,14 +117,14 @@ let sightCardFunc = (sightseeing, locationCollection) => {
           loveBtn.innerText = "♥️"
 
     let deleteBtn = document.createElement("button")
-          deleteBtn.className = "delete"
+          deleteBtn.className = "del-fav-new-btn"
           deleteBtn.innerText = "Delete"
 
     let addToFav = document.createElement("button")
-        addToFav.className = "fav-btn"
+        addToFav.className = "del-fav-new-btn"
         addToFav.innerText = "Add to favorite"
 
-        btnContainer.append(loveBtn, deleteBtn, addToFav)
+        btnContainer.append(loveBtn, addToFav, deleteBtn)
 
     // allSightsReviews.innerText = ""
 
@@ -135,6 +149,7 @@ let sightCardFunc = (sightseeing, locationCollection) => {
         reviewArea.placeholder = "Write your review here..."
     
     let submitReview = document.createElement("button")
+        submitReview.className = "submit-btn"
         submitReview.innerText = "submit"
 
     reviewForm.append(reviewArea, submitReview)
@@ -169,8 +184,8 @@ let sightCardFunc = (sightseeing, locationCollection) => {
         })
       })
 
-
-    sightCard.append(sightImg, sightName, sightDesc, sightLoves, btnContainer, reviewDiv) //likes, likeBtn, 
+    soloDiv.append(sightName, sightDesc, sightLoves, btnContainer, reviewDiv)
+    sightCard.append(sightImg, soloDiv) //likes, likeBtn, 
     sightContainer.append(sightCard)
 
     addToFav.addEventListener("click", () => {
@@ -354,12 +369,15 @@ favorite.addEventListener("click", (e) => {
 })
 
 let displayFavs = (travelerInfo) => {
-    console.log(travelerInfo.likes)
+    // console.log(travelerInfo.likes)
     fetch(`http://localhost:3000/travelers/${travelerInfo.id}`)
         .then(res => res.json())
         .then(traveler => {
             main.innerHTML = ""
-            traveler.likes.forEach((travelerFave)=>{
+            // console.log(traveler)
+
+            traveler.liked_sights.forEach((travelerFave)=>{
+                // console.log(travelerFave)
                 createFave(travelerFave)
             })
         })
@@ -367,10 +385,23 @@ let displayFavs = (travelerInfo) => {
 
 let createFave = (travelerFave) =>  {
 
-    console.log("from createFunc", likes.sightseeing)
+    // console.log("from createFunc", travelerFave)
 
-    likes.forEach(like => {
-        let likeDiv = createElement("div")
-            likeDiv.className
-    })
+    // travelerFave.forEach(fave => {
+        let sightCard = document.createElement("div")
+            sightCard.className = "sight-card"
+
+        let sightImg = document.createElement("img")
+            sightImg.src = travelerFave.image_url
+            sightImg.classList.add("sightseeing-pic")
+
+        let sightName = document.createElement("h2")
+            sightName.innerText = travelerFave.name
+
+        let sightDesc = document.createElement("p")
+            sightDesc.className = "desc"
+            sightDesc.innerText = travelerFave.description
+
+        sightCard.append(sightImg, sightName, sightDesc)
+    // })
 }

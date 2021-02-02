@@ -8,20 +8,22 @@
   position: relative;
 }
 
-#navbar ul{
+#main_header .navbar{
   padding: 0;
   list-style: none;
-  float: right;
   font-family: "Ubuntu";
   font-size: 2.5rem;
   font-weight: bold;
+  display: inline-block;
+  /* text-align: right; */
 }
 
-#navbar li {
-display: inline;
+#main-header .navbar li {
+  text-align: right;
+  display: inline;
 }
 
-.nav-link {
+#main-header .nav-link {
   padding: 0 18px;
   color: black;
   font-size: 1.2rem;
@@ -29,93 +31,85 @@ display: inline;
 }
   
 
-  .main {
-      padding: 0px;
-  }
+.main {
+  padding: 0px;
+}
 
-  .card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    border-radius: 5px;
-    width: 250px;
-    height: 300px;
-    display: inline-block;
-    text-align: center;
-    font-family: "Ringside Wide", "Karla", sans-serif;
-  }
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 5px;
+  width: 250px;
+  height: 300px;
+  display: inline-block;
+  text-align: center;
+  font-family: "Ringside Wide", "Karla", sans-serif;
+  border: grey solid 1px;
+  padding: 1rem;
+  width: fit-content;
+  height: fit-content;
+  display: inline-grid;
+  margin: 1rem 2rem;
+}
 
-  .location {
-    float: left;
-    width: 50%;
-    border: 50%;
-    padding: 30px;
-  }
+.location {
+  float: left;
+  width: 50%;
+  border: 50%;
+  padding: 30px;
+}
   
-  .card img {
-    width: 100%;
-    border-radius: 5px;
-    height: 300px;
-    object-fit: cover;
-  }
+.card img {
+  width: 100%;
+  border-radius: 5px;
+  height: 300px;
+  object-fit: cover;
+}
 
-  .location-collection {
-    margin: 2rem;
-  }
-  .card {
-    text-align: center;
-    border: grey solid 1px;
-    padding: 1rem;
-    width: fit-content;
-    height: fit-content;
-    display: inline-grid;
-    margin: 1rem 2rem;
+.location-collection {
+  margin: 5rem;
+}
   
-  }
+h3 {
+  font-family: 'Caveat';
+}
   
-  h3 {
-    font-family: 'Caveat';
-  }
-  
-  h2{
-    font-family: 'Caveat';
-  }
-  .location-pic {
-    justify-self: center;
-    height: 20rem;
-    width: 330px;
-  }
-  
-  .hide {
-    display: none;
-  }
+h2{
+  font-family: 'Caveat';
+}
 
-  .solo-card {
-    text-align: center;
-    border: grey solid 1px;
-    padding: 4rem;
-    width: fit-content;
-    height: fit-content;
-    display: flex;
-    margin: 1rem 2rem;
-    background-color: #f4f9f7;
+.location-pic {
+  justify-self: center;
+  height: 20rem;
+  width: 330px;
+}
   
-  }
+.hide {
+  display: none;
+}
 
-  .sight-card {
-    display: flex;
-    flex-direction: row;
-  }
+.sight-card {
+  text-align: center;
+  border: grey solid 1px;
+  padding: 4rem;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  margin: 1rem 2rem;
+  background-color: #f0f6fc;
+}
+
   
-  .sightseeing-pic {
-    justify-self: left;
-    height: 20rem;
-    width: 300px;
-    display: grid;
-    grid-template-columns: repeat(3 1fr);
+.sightseeing-pic {
+  justify-self: left;
+  height: 20rem;
+  width: 300px;
+  /* display: grid; */
+    /* grid-template-columns: repeat(3 1fr);
     grid-gap: 1em;
-    grid-auto-rows: minmax(100px, auto);
+    grid-auto-rows: minmax(100px, auto); */
     /* float: left; */
     /* width: 30%; */
-  }
+}
 
   /* .p desc{
     display: grid;
@@ -126,35 +120,97 @@ display: inline;
     width: 50%;
   } */
   
-  .container {
-    padding:20px;
-  }
+.sightseeing-container {
+  padding:20px;
+}
   
-  .desc{
-    text-align: center;
-    font-family: 'Port Lligat Sans', sans-serif;
-    font-size: large;
-  }
+.desc{
+  text-align: center;
+  font-family: 'Port Lligat Sans', sans-serif;
+  font-size: large;
+}
   
-  .name-desc-container{
-    padding: 2em;
-    display: flow-root;
-  
-  }
+.name-desc-container{
+  padding: 0em;
+  display: flow-root;
+}
+
+.del-fav-new-btn{
+  border-radius: 12px;
+  cursor: pointer;
+  background-color: #a5cffa;
+  border: none;
+  color: white;
+  padding: 3px 11px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: 'Caveat';  
+}
+
+.new-sight-btn {
+  margin-right: 10px;
+}
+
+.love-btn {
+  border-radius: 12px;
+  cursor: pointer;
+  background-color: #a5cffa;
+  border: none;
+  color: white;
+  padding: 3px 11px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: 'Caveat';
+}
+
+#sign-up-btn {
+  border-radius: 12px;
+  cursor: pointer;
+  background-color: #a5cffa;
+  border: none;
+  color: white;
+  padding: 3px 11px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: 'Caveat';
+}
+
+.submit-btn {
+  border-radius: 12px;
+  cursor: pointer;
+  background-color: #a5cffa;
+  border: none;
+  color: white;
+  padding: 3px 11px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: 'Caveat';
+}
   
 
+.form-control {
+  display: block;
+  width: 20%;
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 
-.star-rating-defaults: (
-  base-classname : 'gl-star-rating',
-  base-display   : block,
-  base-height    : 26px,
-  font-size      : 0.8em,
-  font-weight    : 600,
-  parent         : '',
-  star-empty     : url(../img/star-empty.svg),
-  star-full      : url(../img/star-full.svg),
-  star-half      : url(../img/star-half.svg),
-  star-size      : 24px,
-  text-background: #1a1a1a,
-  text-color     : #fff,
-);
+
+

@@ -10,7 +10,7 @@ navbar.addEventListener("click", (evt) => {
 
     if (evt.target.id == "login") {showLoginForm()}
     if (evt.target.id == "signup") {showSignUpForm()}
-    if (evt.target.id == "home") {renderLocation()}
+    
 
 })
 
@@ -19,35 +19,35 @@ let showSignUpForm = () => {
     // locationDiv.innerText = ""
     main.innerText = ""
 
-    let signUpForm = document.createElement('form')
+    let signUpForm = document.createElement("form")
         signUpForm.className = "sign-up-form"
 
     let heading = document.createElement("h2")
         heading.innerText = "Create an account"
 
-    let line = document.createElement('hr'); // linebreak
+    let line = document.createElement("hr"); // linebreak
     
-    let linebreak = document.createElement('br'); // space
+    let linebreak = document.createElement("br"); // space
     
-    let nameLabel = document.createElement('label'); // Full Name label
+    let nameLabel = document.createElement("label"); // Full Name label
     nameLabel.innerHTML = "Name: ";
     
-    let nameInput = document.createElement('input'); // Full Name input
+    let nameInput = document.createElement("input"); // Full Name input
     nameInput.id = "name"
     
-    let linebreak1 = document.createElement('br'); // space
+    let linebreak1 = document.createElement("br"); // space
     
-    let usernameLabel = document.createElement('label'); // Username label
+    let usernameLabel = document.createElement("label"); // Username label
     usernameLabel.innerHTML = "Username: "; // 
     
-    let userNameInput = document.createElement('input'); // Username input
+    let userNameInput = document.createElement("input"); // Username input
     userNameInput.id = "username"
 
-    let linebreak2 = document.createElement('br'); // space
+    let linebreak2 = document.createElement("br"); // space
 
-    let submitBtn = document.createElement('button'); // Append Submit Button
+    let submitBtn = document.createElement("button"); // Append Submit Button
     submitBtn.type = "submit"
-    submitBtn.className = "btn btn-primary btn-lg"
+    submitBtn.className = "button"
     submitBtn.id = 'sign-up-button'
     submitBtn.innerText = "Create Account"
 
@@ -62,11 +62,11 @@ let showSignUpForm = () => {
 let handleSignUpForm = (evt) => {
     evt.preventDefault()
     let newName = evt.target["name"].value
-    
+    renderLocation()
 }
 
 let showLoginForm = () => {
-    // login.innerHTML = ""
+    main.innerText = ""
 
     let loginForm = document.createElement("form")
         loginForm.classList.add("form")
@@ -93,7 +93,7 @@ let showLoginForm = () => {
 
     loginForm.append(usernameDiv, submitButton)
 
-    login.append(loginForm)
+    main.append(loginForm)
     loginForm.addEventListener("submit", handleLoginForm)
 }
 
@@ -116,7 +116,7 @@ let handleLoginForm = (evt) => {
         if (user.id) {
             console.log(user)
             travelerInfo = user
-            // renderSightseeings()
+            fetchHome()
         }
     })
 }
