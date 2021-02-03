@@ -2,7 +2,6 @@
 let locationCollection = document.querySelector(".location-collection")
 let sightContainer = document.querySelector(".sightseeing-container")
 
-// const createSightBtn = document.querySelector(".formbtn")
 const sightsForm = document.querySelector(".add-sights-form")
 const formDiv = document.querySelector("#form-container")
 const main = document.querySelector(".main")
@@ -10,21 +9,19 @@ const favorite = document.querySelector("#favorite")
 const home = document.querySelector("#home")
 
 
+let renderHomePage = () => {
+    home.addEventListener("click", homeClick)
+}
 
-
-// let allReviews = []
-
-home.addEventListener("click", (evt) => {
+let homeClick = () => {
     main.innerHTML = ""
     let locCollect = document.createElement("div")
-    locationCollection = locCollect
+        locationCollection = locCollect
     let sightCollect = document.createElement("div")
-    sightContainer = sightCollect
+        sightContainer = sightCollect
     main.append(locCollect, sightCollect)
-
     fetchHome()
-})
-
+}
 
 let fetchHome = () => {
     fetch("http://localhost:3000/locations")
@@ -38,9 +35,9 @@ let fetchHome = () => {
 }
 
 fetchHome()
+renderHomePage()
 
 let renderLocation = (location) => {
-    // createSightBtn.classList.add("hide")
 
     let locationDiv = document.createElement("div")
         locationDiv.classList.add("location")
@@ -67,7 +64,7 @@ let renderSight = (locationImg, location, locationCollection) => {
     if (locationImg) {
         locationImg.addEventListener("click", (evt) => {
             locationCollection.classList.add("hide")
-            // createSightBtn.classList.remove("hide")
+
             let createSightBtn = document.createElement("button")
                 createSightBtn.className = "del-fav-new-btn"
                 createSightBtn.is = "new-sight-btn"
@@ -107,28 +104,25 @@ let sightCardFunc = (sightseeing, locationCollection) => {
 
     let sightLoves = document.createElement("div")
         sightLoves.className = "loves-count"
-        sightLoves.innerText = `${sightseeing.loves} loves`
+        sightLoves.innerText = `${sightseeing.loves ?? 0} loves`
 
     let btnContainer = document.createElement("div")
         btnContainer.className = "btn-container"
 
     let loveBtn = document.createElement("button")
-          loveBtn.className = "love-btn"
-          loveBtn.innerText = "♥️"
+        loveBtn.className = "love-btn"
+        loveBtn.innerText = "♥️"
 
     let deleteBtn = document.createElement("button")
-          deleteBtn.className = "del-fav-new-btn"
-          deleteBtn.innerText = "Delete"
+        deleteBtn.className = "del-fav-new-btn"
+        deleteBtn.innerText = "Delete"
 
     let addToFav = document.createElement("button")
         addToFav.className = "del-fav-new-btn"
         addToFav.innerText = "Add to favorite"
 
-        btnContainer.append(loveBtn, addToFav, deleteBtn)
+    btnContainer.append(loveBtn, addToFav, deleteBtn)
 
-    // allSightsReviews.innerText = ""
-
-    // allSightsReviews.className = "reviews"
     
     let reviewH5 = document.createElement("h5")
         reviewH5.id = "review-header"
@@ -192,7 +186,6 @@ let sightCardFunc = (sightseeing, locationCollection) => {
         addToFavsFunc(sightseeing)
     })
 
-    // increaseLikes(likeBtn, sightseeing, likes)
     increaseLove(loveBtn, sightseeing, sightLoves)
     deleteSight(deleteBtn, sightseeing, sightCard)
 }
@@ -213,7 +206,7 @@ let createNewReview = (review, reviewDiv) => {
 
 let createSightsFunc = (createSightBtn, location) => {
     createSightBtn.addEventListener("click", (evt) => {
-        console.log(createSightBtn)
+
         sightContainer.classList.add("hide")
 
 
@@ -262,8 +255,8 @@ let createSightsFunc = (createSightBtn, location) => {
             submitButton.classList.add("submit-btn")
             submitButton.innerText = "Submit"
 
-        form.append(inputName, br, inputImage, br1, inputDesc, br2, submitButton)
-        formDiv.append(form)
+    form.append(inputName, br, inputImage, br1, inputDesc, br2, submitButton)
+    formDiv.append(form)
 
         form.addEventListener("submit", (evt) => {
             evt.preventDefault()
@@ -292,23 +285,21 @@ let createSightsFunc = (createSightBtn, location) => {
                 sightCardFunc(newSights)
                 form.innerHTML = ""
                 formDiv.classList.add("hide")
+
             })
         })
     })
 }
 
 
-
-
-
-
 let increaseLove = (loveBtn, sightseeing, sightLoves) => {
     
     loveBtn.addEventListener("click", (e) => {
 
+      
         let loveCounter = parseInt(sightLoves.innerText.split(" ")[0]) + 1
 
-        console.log(loveCounter)
+        // console.log(loveCounter)
 
         fetch(`http://localhost:3000/sightseeings/${sightseeing.id}`, {
             method: "PATCH",
@@ -385,23 +376,25 @@ let displayFavs = (travelerInfo) => {
 
 let createFave = (travelerFave) =>  {
 
-    // console.log("from createFunc", travelerFave)
+    // createSightsFunc(travelerFave)
+
+    console.log("from createFunc", travelerFave)
 
     // travelerFave.forEach(fave => {
-        let sightCard = document.createElement("div")
-            sightCard.className = "sight-card"
+        let faveDiv = document.createElement("div")
+            faveDiv.className = "sight-card"
 
-        let sightImg = document.createElement("img")
-            sightImg.src = travelerFave.image_url
-            sightImg.classList.add("sightseeing-pic")
+        let faveImg = document.createElement("img")
+            faveImg.src = travelerFave.image_url
+            faveImg.classList.add("sightseeing-pic")
 
-        let sightName = document.createElement("h2")
-            sightName.innerText = travelerFave.name
+        let faveName = document.createElement("h2")
+            faveName.innerText = travelerFave.name
 
-        let sightDesc = document.createElement("p")
-            sightDesc.className = "desc"
-            sightDesc.innerText = travelerFave.description
+        let faveDesc = document.createElement("p")
+            faveDesc.className = "desc"
+            faveDesc.innerText = travelerFave.description
 
-        sightCard.append(sightImg, sightName, sightDesc)
-    // })
+        faveDiv.append(faveImg, faveName)
+        main.append(faveDiv)
 }

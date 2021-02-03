@@ -62,7 +62,38 @@ let showSignUpForm = () => {
 let handleSignUpForm = (evt) => {
     evt.preventDefault()
     let newName = evt.target["name"].value
-    renderLocation()
+
+    fetch("http://localhost:3000/signup", {
+        method: "POST",
+        headers: {
+            "content-type": "Application/json"
+        },
+        body: JSON.stringify({
+            username: newName
+        })
+    })
+    .then(res => res.json())
+    .then(user => {
+        if (user.id) {
+            // console.log(user)
+            travelerInfo = user
+            let login = document.querySelector("#login")
+                login.remove()
+            let signup = document.querySelector("#signup")
+                signup.remove()
+            let loggedInUser = document.querySelector("#name")
+                loggedInUser.innerText = `Hello, ${travelerInfo.name}!`
+            let logoutBtn = document.querySelector("#logout")
+                logoutBtn.innerText = "Log out"
+                
+            homeClick()
+
+            logoutBtn.addEventListener("click", (evt) => {
+                console.log("from logout")
+                logoutFunc(logoutBtn)
+            })
+        } 
+    })
 }
 
 let showLoginForm = () => {
@@ -100,7 +131,7 @@ let showLoginForm = () => {
 let handleLoginForm = (evt) => {
     // debugger
     evt.preventDefault()
-    let loggedInUser = evt.target.username.value
+    let currentUser = evt.target.username.value
 
     fetch("http://localhost:3000/login", {
         method: "POST",
@@ -108,17 +139,47 @@ let handleLoginForm = (evt) => {
             "content-type": "Application/json"
         },
         body: JSON.stringify({
-            username: loggedInUser
+            username: currentUser
         })
     })
     .then(res => res.json())
     .then(user => {
         if (user.id) {
-            console.log(user)
+            // console.log(user)
             travelerInfo = user
-            fetchHome()
-        }
+            let login = document.querySelector("#login")
+                login.remove()
+            let signup = document.querySelector("#signup")
+                signup.remove()
+            let loggedInUser = document.querySelector("#name")
+                loggedInUser.innerText = `Hello, ${travelerInfo.name}!`
+            let logoutBtn = document.querySelector("#logout")
+                logoutBtn.innerText = "Log out"
+                
+            homeClick()
+
+            logoutBtn.addEventListener("click", (evt) => {
+                console.log("from logout")
+                logoutFunc(logoutBtn)
+            })
+        } 
     })
 }
 
-// showLoginForm()
+let logoutFunc = (logoutBtn) => {
+    logoutBtn.remove()
+    travelerInfo = null
+    homeClick()
+    let loggedInUser = document.querySelector("#name")
+        loggedInUser.innerText = ""
+
+    let loginBtn = document.createElement("li")
+        loginBtn.className = "nav-link"
+        loginBtn.id = "login"
+        loginBtn.innerText = "Login"
+    
+    navbar.firstElementChild.append(loginBtn)
+}
+
+
+
